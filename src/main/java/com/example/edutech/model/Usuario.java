@@ -37,7 +37,7 @@ public class Usuario {
     @Column(nullable = false)
     private String apellido;
 
-    @NotBlank(message = "Este campo no puede estar vacio")
+    @NotNull(message = "Este campo no puede estar vacio")
     @Column(nullable = false)
     private Integer edad;
 
