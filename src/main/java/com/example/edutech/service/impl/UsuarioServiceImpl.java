@@ -20,7 +20,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public Usuario registrarUsuario(Usuario usuario) {
         if (usuario.getNumerocelular() == null || usuario.getNumerocelular().trim().isEmpty()) {
-            usuario.setNumerocelular("+56900000000"); // 🔥 Asignamos un número por defecto si está vacío
+            usuario.setNumerocelular("+56900000000");
         }
         if (usuarioRepository.existsByCorreo(usuario.getCorreo())) {
             throw new RuntimeException("El correo ya está en uso.");
