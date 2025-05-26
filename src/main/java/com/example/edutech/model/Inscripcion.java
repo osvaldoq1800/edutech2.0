@@ -1,5 +1,5 @@
 package com.example.edutech.model;
 
-public class Inscripciones {
+public class Inscripcion {
 
 }
