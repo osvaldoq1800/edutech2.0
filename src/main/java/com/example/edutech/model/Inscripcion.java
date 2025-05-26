@@ -19,34 +19,28 @@ public class Inscripcion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Relación con el usuario
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
-    @NotNull(message = "El usuario es obligatorio")
+    @NotNull
     private Usuario usuario;
 
-    // Relación con el curso
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "curso_id", nullable = false)
-    @NotNull(message = "El curso es obligatorio")
+    @NotNull
     private Curso curso;
 
-    // Fecha de inscripción automática
     @CreationTimestamp
     @Column(name = "fecha_inscripcion", nullable = false, updatable = false)
     private LocalDateTime fechaInscripcion;
 
-    // Estado de inscripción
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
-    private EstadoInscripcion estado = EstadoInscripcion.PENDIENTE;
+    private Estado estado = Estado.PENDIENTE;
 
-    // Comentario opcional
     @Column(length = 255)
     private String comentario;
 
-    // Enum interno o externo
-    public enum EstadoInscripcion {
+    public enum Estado {
         PENDIENTE,
         APROBADA,
         RECHAZADA,
