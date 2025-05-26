@@ -4,6 +4,7 @@ import com.example.edutech.model.*;
 import com.example.edutech.repository.InscripcionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,10 +35,12 @@ public class InscripcionService {
         return inscripcionRepository.existsByUsuarioAndCurso(usuario, curso);
     }
 
+    @Transactional
     public Inscripcion guardar(Inscripcion inscripcion) {
         return inscripcionRepository.save(inscripcion);
     }
 
+    @Transactional
     public void eliminar(Long id) {
         inscripcionRepository.deleteById(id);
     }

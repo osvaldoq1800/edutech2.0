@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CursoRepository extends JpaRepository<Curso, Long> {
-
-    // Método personalizado para buscar cursos por nombre (opcional)
     List<Curso> findByNombreContainingIgnoreCase(String nombre);
 }

@@ -2,35 +2,35 @@ package com.example.edutech.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "curso")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-
+@AllArgsConstructor
 public class Curso {
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "curso_seq")
+    @SequenceGenerator(name = "curso_seq", sequenceName = "curso_seq", allocationSize = 1)
     private Long id;
 
-    @NotBlank(message = "El nombre del curso es obligatorio")
-    @Size(max = 100, message = "El nombre del curso no debe exceder los 100 caracteres")
+    @NotBlank
+    @Size(max = 100)
     @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Size(max = 255, message = "La descripción no debe exceder los 255 caracteres")
+    @Size(max = 255)
     private String descripcion;
 
+    @NotBlank
     @Column(nullable = false)
     private String instructor;
 
+    @NotNull
     @Column(nullable = false)
-    private int duracion; // Duración en horas o semanas
-
+    private Integer duracion;
 }

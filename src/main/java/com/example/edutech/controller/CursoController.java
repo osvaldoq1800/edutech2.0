@@ -2,20 +2,19 @@ package com.example.edutech.controller;
 
 import com.example.edutech.model.Curso;
 import com.example.edutech.service.CursoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/cursos")
+@RequiredArgsConstructor
 public class CursoController {
 
-    @Autowired
-    private CursoService cursoService;
+    private final CursoService cursoService;
 
     @GetMapping
     public List<Curso> listarCursos() {
@@ -24,20 +23,22 @@ public class CursoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Curso> obtenerCursoPorId(@PathVariable Long id) {
-        Curso curso = cursoService.obtenerPorId(id);
-        return ResponseEntity.ok(curso);
+        return cursoService.obtenerPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Curso> crearCurso(@Valid @RequestBody Curso curso) {
+    public ResponseEntity<Curso> crearCurso(@RequestBody Curso curso) {
         Curso nuevoCurso = cursoService.crearCurso(curso);
-        return new ResponseEntity<>(nuevoCurso, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoCurso);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Curso> actualizarCurso(@PathVariable Long id, @Valid @RequestBody Curso curso) {
-        Curso cursoActualizado = cursoService.actualizarCurso(id, curso);
-        return ResponseEntity.ok(cursoActualizado);
+    public ResponseEntity<Curso> actualizarCurso(@PathVariable Long id, @RequestBody Curso curso) {
+        return cursoService.obtenerPorId(id)
+                .map(c -> ResponseEntity.ok(cursoService.actualizarCurso(id, curso)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
