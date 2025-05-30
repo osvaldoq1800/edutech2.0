@@ -10,6 +10,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Contenido {
 
     @Id
@@ -22,16 +23,20 @@ public class Contenido {
     private String nombrecontenido;
 
     @Lob
-    @Column(name = "archivo_contenido", columnDefinition = "LONGBLOB")
+    @Column(name = "archivo_contenido")
     @JsonIgnore
     private byte[] archivocontenido;
 
     @Lob
-    @Column(name = "video_contenido", columnDefinition = "LONGBLOB")
+    @Column(name = "video_contenido")
     @JsonIgnore
     private byte[] videocontenido;
 
     @NotBlank(message = "Este campo no puede estar vacío")
     @Column(nullable = false)
     private String descripcioncontenido;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "curso_id", nullable = false)
+    private Curso curso;
 }

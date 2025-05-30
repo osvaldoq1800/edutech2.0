@@ -16,6 +16,7 @@ public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "curso_seq")
     @SequenceGenerator(name = "curso_seq", sequenceName = "curso_seq", allocationSize = 1)
+    @Column(name = "ID") // Aquí va el nombre exacto en BD
     private Integer idcurso;
 
     @NotBlank
@@ -24,7 +25,7 @@ public class Curso {
     private String nombre;
 
     @Size(max = 500)
-    @Column(nullable = false)
+    @Column(nullable = true)  // En tu tabla descripción puede ser nulo
     private String descripcion;
 
     @NotBlank

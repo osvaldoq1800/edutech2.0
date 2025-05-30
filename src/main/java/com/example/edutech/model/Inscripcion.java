@@ -3,9 +3,7 @@ package com.example.edutech.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "inscripcion")
@@ -20,31 +18,22 @@ public class Inscripcion {
     @SequenceGenerator(name = "inscripcion_seq", sequenceName = "inscripcion_seq", allocationSize = 1)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id", nullable = false)
     @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "curso_id", nullable = false)
     @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "curso_id", nullable = false)
     private Curso curso;
 
-    @CreationTimestamp
-    @Column(name = "fecha_inscripcion", nullable = false, updatable = false)
-    private LocalDateTime fechaInscripcion;
+    @Builder.Default
+    @Column(name = "fecha_inscripcion", nullable = false)
+    private LocalDate fechaInscripcion = LocalDate.now();
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    private Estado estado= Estado.PENDIENTE;
-
-    @Column(length = 255)
-    private String comentario;
-
-    public enum Estado {
-        PENDIENTE,
-        APROBADA,
-        RECHAZADA,
-        CANCELADA
-    }
+    // Cambiado de "ACTIVO" a "PENDIENTE" para respetar restricción DB
+    @Builder.Default
+    @Column(name = "estado", nullable = false)
+    private String estado = "PENDIENTE";  // Valores permitidos: PENDIENTE, APROBADA, RECHAZADA, CANCELADA
 }

@@ -17,6 +17,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_seq")
     @SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1)
+    @Column(name = "IDUSUARIO")
     private Integer idusuario;
 
     @NotBlank(message = "El rut es obligatorio")
