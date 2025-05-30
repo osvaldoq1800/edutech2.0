@@ -17,12 +17,12 @@ public class CursoServiceImpl implements CursoService {
     private final CursoRepository cursoRepository;
 
     @Override
-    public List<Curso> listarCursos() {
+    public List<Curso> listarCurso() {
         return cursoRepository.findAll();
     }
 
     @Override
-    public Optional<Curso> obtenerPorId(Long id) {
+    public Optional<Curso> obtenerPorId(Integer id) {
         return cursoRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     @Transactional
-    public Curso actualizarCurso(Long id, Curso curso) {
+    public Curso actualizarCurso(Integer id, Curso curso) {
         return obtenerPorId(id).map(existente -> {
             existente.setNombre(curso.getNombre());
             existente.setDescripcion(curso.getDescripcion());
@@ -46,7 +46,7 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     @Transactional
-    public void eliminarCurso(Long id) {
+    public void eliminarCurso(Integer id) {
         if (!cursoRepository.existsById(id)) {
             throw new RuntimeException("Curso no encontrado con id " + id);
         }

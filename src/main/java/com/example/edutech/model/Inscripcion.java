@@ -36,7 +36,7 @@ public class Inscripcion {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
-    private Estado estado = Estado.PENDIENTE;
+    private Estado estado= Estado.PENDIENTE;
 
     @Column(length = 255)
     private String comentario;

@@ -18,11 +18,11 @@ public class CursoController {
 
     @GetMapping
     public List<Curso> listarCursos() {
-        return cursoService.listarCursos();
+        return cursoService.listarCurso();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Curso> obtenerCursoPorId(@PathVariable Long id) {
+    public ResponseEntity<Curso> obtenerCursoPorId(@PathVariable Integer id) {
         return cursoService.obtenerPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -35,14 +35,14 @@ public class CursoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Curso> actualizarCurso(@PathVariable Long id, @RequestBody Curso curso) {
+    public ResponseEntity<Curso> actualizarCurso(@PathVariable Integer id, @RequestBody Curso curso) {
         return cursoService.obtenerPorId(id)
                 .map(c -> ResponseEntity.ok(cursoService.actualizarCurso(id, curso)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarCurso(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarCurso(@PathVariable Integer id) {
         cursoService.eliminarCurso(id);
         return ResponseEntity.noContent().build();
     }

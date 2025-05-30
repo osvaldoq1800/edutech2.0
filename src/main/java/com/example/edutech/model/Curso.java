@@ -16,17 +16,19 @@ public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "curso_seq")
     @SequenceGenerator(name = "curso_seq", sequenceName = "curso_seq", allocationSize = 1)
-    private Long id;
+    private Integer idcurso;
 
     @NotBlank
-    @Size(max = 100)
-    @Column(nullable = false, length = 100)
+    @Size(max = 50, message = "Este campo es obligatorio")
+    @Column(nullable = false)
     private String nombre;
 
-    @Size(max = 255)
+    @Size(max = 500)
+    @Column(nullable = false)
     private String descripcion;
 
     @NotBlank
+    @Size(max = 50)
     @Column(nullable = false)
     private String instructor;
 
